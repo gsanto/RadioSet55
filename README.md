@@ -1,2 +1,2 @@
 # RadioSet55
-Web server to remote control custom device setting frequency and other parameters in DDs based VFO for HamRadio application 
+Raspberry Pi 2 based web-server to remote control setting frequency and other parameters in custom devices DDS4 (DDS based VFO) or SDT2011 for HamRadio application 
