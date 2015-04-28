@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="">
+
+<head>
+  <TITLE>RADIOset55 v2.0</TITLE>
+ 
+<style type="text/css">
+body {
+  background-color:'#B87272' ;
+  /*  background-image:
+        url('http://cursi.salentovirtuale.com/cursore2.gif');*/
+}
+</style>
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <script src="/js/jquery.knob.js"></script>
+  <script src="/js/angular.min.js"></script>
+  <script src="/js/angular-resource.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  
+  <script>
+  var i1=0;
+  var i2=0;
+  var mFactor =1;
+  function calculate() {
+    var result = 0;
+    $('.dial').each(function (e) {
+        result += $(this).val(); //Multiply by 1 to get an int
+    });
+    $('#result').text((typeof result) + ' ' + result); //Why is this a string in the first place?
+} 
+            $(function() {
+                var $ifactor = $("div.ifactor");
+                $(".knob").knob({
+                  'fgColor': dialColour,
+                    release : function (value) {
+                      mFactor = Math.pow(10, value -1);
+                      $ifactor.html(mFactor);
+                      console.log("release : " + value + " zzz " + mFactor);
+                    },
+                    /*
+                    change : function (value) {
+                        console.log("change : " + value);
+                    },
+                  /*  
+                    cancel : function () {
+                        console.log("cancel : " + this.value);
+                    },*/
+                    draw : function () {
+
+                        // "tron" case
+                        if(this.$.data('skin') == 'tron') {
+
+                            var a = this.angle(this.cv)  // Angle
+                                , sa = this.startAngle          // Previous start angle
+                                , sat = this.startAngle         // Start angle
+                                , ea                            // Previous end angle
+                                , eat = sat + a                 // End angle
+                                , r = 1;
+
+                            this.g.lineWidth = this.lineWidth;
+
+                            this.o.cursor
+                                && (sat = eat - 0.3)
+                                && (eat = eat + 0.3);
+
+                            if (this.o.displayPrevious) {
+                                ea = this.startAngle + this.angle(this.v);
+                                this.o.cursor
+                                    && (sa = ea - 0.3)
+                                    && (ea = ea + 0.3);
+                                this.g.beginPath();
+                                this.g.strokeStyle = this.pColor;
+                                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                                this.g.stroke();
+                            }
+
+                            this.g.beginPath();
+                            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor ;
+                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                            this.g.stroke();
+
+                            this.g.lineWidth = 2;
+                            this.g.beginPath();
+                            this.g.strokeStyle = this.o.fgColor;
+                            this.g.arc( this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                            this.g.stroke();
+
+                            return false;
+                        }
+                    }
+                });
+
+var sendData1 = function(action) {
+        console.log("ch: " + i1);
+        /*$scope.sendData('VFA');*/
+        
+      };
+
+var sendData3 = function(action) {
+        console.log("ch: " + i1);
+        $http.post("/data", {FrequencyA: $scope.FrequencyA, FrequencyB: $scope.FrequencyB, Action: action}).success(callback);
+      };
+
+      /******************/
+
+});
+                    
+         
+ 
+$('.dial').trigger('configure', {
+    'release': function (v) {
+        console.log('new value' + v);
+    }
+});
+
+
+
+
+var $dial = $('.dial');
+var dialColour = '#66EE66';
+/*if ($dial.val() < 3000) {
+    dialColour = '#CC0';
+}
+else if ($dial.val() < 1500) {
+    dialColour = '#0C0';
+}*/
+
+$('.knob').knob({
+    'min':0,
+    'max':5000,
+    'readOnly': false,
+    'width': 120,
+    'height': 120,
+    'float' : 'left',
+    'fgColor': dialColour,
+    'dynamicDraw': true,
+    'thickness': 0.7,
+    'tickColorizeValues': true,
+    'skin':'tron'
+});
+
+
+
+
+
+$(function() {
+    $( "#radio" ).buttonset();
+  });
+
+$(function() {
+    var spinner = $( "#spinner" ).spinner();
+ 
+    $( "#disable" ).click(function() {
+      if ( spinner.spinner( "option", "disabled" ) ) {
+        spinner.spinner( "enable" );
+      } else {
+        spinner.spinner( "disable" );
+      }
+    });
+    $( "#destroy" ).click(function() {
+      if ( spinner.data( "ui-spinner" ) ) {
+        spinner.spinner( "destroy" );
+      } else {
+        spinner.spinner();
+      }
+    });
+    $( "#getvalue" ).click(function() {
+      alert( spinner.spinner( "value" ) );
+    });
+    $( "#setvalue" ).click(function() {
+      spinner.spinner( "value", i1 );
+    });
+ 
+$(function() {
+    $( "#check" ).button();
+    $( "#format" ).buttonset();
+  });
+
+
+
+
+
+    $( "button" ).button();
+  });
+
+    $(function() {
+        $(".knob").knob();
+    });
+
+    function FreqCtrl($scope, $http, $interval) {
+ 
+
+
+      $scope.range = makeRevRange(5);
+
+      function makeRevRange(num) {
+        a = new Array();
+        for (i=0; i<num; ++i) {
+          a.push(num-1-i);
+        }
+        return a;
+      }
+
+      $scope.setA = function() {
+        sel_ab = 0;
+        selFreq = "FA";
+        selColour = '#66EE66';
+        $idir.show().html("FA");
+        $scope.FrequencyA = i1;
+      };
+
+      $scope.setB = function() {
+        sel_ab = 1;
+        selFreq = "FB";
+        selColour = '#CC0';
+        $idir.show().html("FB");
+        $scope.FrequencyB = i1;
+      };
+
+      $scope.getA = function() {
+        sel_ab = 0;
+        selFreq = "FA";
+        dialColour = '#66EE66'
+        selColour = '#66EE66';
+        $idir.show().html("FA");
+        i1 = $scope.FrequencyA;
+        $ival.html(i1);
+        $scope.sendData('VFA');
+      };
+
+      $scope.getB = function() {
+        sel_ab = 1;
+        selFreq = "FB";
+        selColour = '#CC0';
+        dialColour = '#CC0'
+        $idir.show().html("FB");
+        i1 = $scope.FrequencyB;
+        $ival.html(i1);
+        $scope.sendData('VFB');
+      };
+
+
+
+      $scope.incrementA = function(n) {
+        $scope.FrequencyA = $scope.FrequencyA + Math.pow(10, n);
+      };
+
+      $scope.decrementA = function(n) {
+        $scope.FrequencyA = $scope.FrequencyA - Math.pow(10, n);
+      };
+
+      $scope.LastUpdateTime = 0;
+
+      var callback = function(data, status, headers, config) {
+        if (data.LastUpdateTime > $scope.LastUpdateTime) {
+          console.log("callback " + data.FrequencyA + " - " + data.FrequencyB + " - " + i1);
+          $scope.Message = data.Message;
+          $scope.FrequencyA = data.FrequencyA;
+          $scope.FrequencyB = data.FrequencyB;
+          $scope.LastUpdateTime = data.LastUpdateTime;
+          $scope.Value_a = data.value;
+          if(sel_ab==0){
+            i1 = data.FrequencyA;
+          } else {
+            i1 = data.FrequencyB;
+          }; 
+          
+        } else {
+         /* console.log("not updating");*/
+        }
+      };
+      var refresh = function() {
+        $http.post("/data", {}).success(callback);
+        i2 = parseInt($scope.FrequencyAStr);
+      }
+
+      refresh()
+      $interval(refresh, 1000);
+
+      $scope.sendData = function(action) {
+        console.log("ch22 to: " + action + " fa " + $scope.FrequencyA + " fb " + $scope.FrequencyB );
+        $http.post("/data", {FrequencyA: $scope.FrequencyA, FrequencyB: $scope.FrequencyB, Action: action}).success(callback);
+      };
+
+var v=i1, up=0,down=0,i=0, sel_ab =0, selColour = '#66EE66', selFreq = "FA"
+                        ,$idir = $("div.idir")
+                        ,$ival = $("div.ival")
+                        ,incr = function() { i1 = i1 + mFactor;  $ival.html(i1)}
+                        ,decr = function() { i1 = i1 - mFactor;  $ival.html(i1)};
+
+                        $("input.infinite").knob(
+                                        {
+                                        min : 0
+                                        , max : 20
+                                        , stopper : false
+                                        , release : function (value) {
+                                            console.log("ch33 to: " + value+ " i1 "+ i1 + "sel " +sel_ab);
+                                            
+                                        }
+                                        , change : function () {
+                                                        if(v > this.cv){
+                                                            if(up){
+                                                                decr();
+                                                                up=0;
+                                                            }else{up=1;down=0;}
+                                                        } else {
+                                                            if(v < this.cv){
+                                                                if(down){
+                                                                    incr();
+                                                                    down=0;
+                                                                }else{down=1;up=0;}
+                                                            }
+                                                        }
+                                                        v = this.cv;
+                                                        console.log("ch1: " + v);
+                                                        if(sel_ab==0){
+                                              $scope.FrequencyA =i1;
+                                              $scope.FrequencyAStr =i1;
+                                              $scope.sendData('VFA');
+                                            } else {
+                                              $scope.FrequencyB = i1;
+                                              $scope.FrequencyBStr =i1;
+                                              $scope.sendData('VFB');
+                                            } 
+                                                    }
+                        });
+            
+ 
+
+
+      $scope.$watch('FrequencyAStr', function() {
+        $scope.FrequencyA = parseInt($scope.FrequencyAStr);/* +parseInt($scope.FrequencyBStr);*/
+        i1 = $scope.FrequencyA;
+        $ival.html(i1);
+      });
+      $scope.$watch('FrequencyBStr', function() {
+        $scope.FrequencyB = parseInt($scope.FrequencyBStr);
+        i1 = $scope.FrequencyB;
+        $ival.html(i1);
+      });
+      $scope.$watch('FrequencyA', function() {
+        $scope.FrequencyAStr = $scope.FrequencyA;
+      });
+      $scope.$watch('FrequencyB', function() {
+        $scope.FrequencyBStr = $scope.FrequencyB;
+      });
+    }
+
+  </script>
+
+  <style type="text/css">
+    main {
+      width: 800px;
+    }
+  </style>
+<title>RADIOset55</title></head>
+
+<body ng-controller="FreqCtrl">
+
+  <div class="container main">
+
+    <div>
+      <h5>RADIOset55 -))</h5>
+    </div>
+  
+
+    <div class="row"></div>
+
+  <div style="clear:both"></div>
+       <div class="row">
+        <div class="col-xs-6" style="background-color: #222">
+          <div class="ifactor" style="width:80px;text-align:center;font-size:50px;color:yellow">0000</div>
+            
+          <div class="demo" style="height:251px;width:200px;background-color:#222; color:#FFF">
+            <div style="float:center;background-color: #222;height: 200px">
+              
+              
+             <input class="knob" type ="number" data-angleOffset=-215 data-angleArc=250 data-fgColor= "#66EE66" value="35" data-min=0 data-max=8 data-displayInput="false">
+          </div>   
+          </div>
+
+
+
+        </div>
+        <div class="col-xs-6" style="background-color:#222">
+          <div style="float:center;margin-top:2px;margin-left:0px">
+              <div class="ival" style="width:80px;text-align:center;font-size:60px; background-color:#222;color: green">0000000</div>
+              
+          </div>
+          <div>
+            
+            <input class="infinite" type="number" data-displayInput="false" data-thickness=".4" data-stopper=false data-cursor=true data-angleArc=360 data-min=0 data-max=199999999 data-width="175" value=0 ng-model="v2" data-linecap=round float = center color = "selColour">
+          </div>
+<div style="float:center;margin-top:2px;margin-left:0px">
+              <div class="idir" style="width:80px;text-align:center;font-size:20px; background-color:#222;color: green">FA</div>
+              
+          </div>
+          
+
+         </div>
+        </div>
+
+      
+    <form role="form">
+      <div class="row" style="background-color:"selColour"">
+          <div id="radio">
+    <input type="radio" id="radio1" name="radio"><label for="radio1">(MHz  )</label>
+    <input type="radio" id="radio2" name="radio" ><label for="radio2">(kHz  )</label>
+    <input type="radio" id="radio3" name="radio" checked="checked"><label for="radio3">(Hz   )</label>
+    <p><tt>Frequency: {{selFreq}}</tt>
+    
+  <button id="getvalue">Get value</button>
+  <button id="setvalue">Set value to 5</button>
+</p>
+  </div>
+        <input type="range" class="form-control" min="0" max="199999999" ng-model="FrequencyAStr">
+      </div>
+      <div class="row">  
+        <div class="col-xs-6">
+
+          <input type="number" class="form-control" name="freqA" min="0" step="any" ng-model="FrequencyA">
+
+        </div>
+        <div class="col-xs-2">
+          <button type="submit" class="btn btn-warning form-control" ng-click="setA()">
+            set A
+          </button>
+        </div>
+        <div class="col-xs-4">  
+          
+          <button type="submit" name="action" value="VFA" class="btn btn-warning form-control" ng-click="getA()">
+            save VFO-A
+          </button>
+        </div>
+      </div>
+
+      <div class="row"><hr></div>
+
+      <div class="row">
+        <input type="range" class="form-control" min="0" max="199999999" ng-model="FrequencyBStr">
+        <div class="col-xs-6">
+          <input type="number" class="form-control" name="freqB" min="0" step="any" ng-model="FrequencyB" font-size = 24>
+         </div>
+        <div class="col-xs-2">
+          <button type="submit" class="btn btn-warning form-control" ng-click="setB()">
+            set B
+          </button>
+        </div>
+        <div class="col-xs-4"> 
+          <button type="submit" class="btn btn-warning form-control" ng-click="getB()">
+            save VFO-B
+          </button>
+        </div>
+      </div>
+
+      <div class="row"><hr></div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('FR0')">
+            Frequency VFO-A
+          </button>
+        </div>
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('FR1')">
+            Frequency VFO-B
+          </button>
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('SW09')">
+            Toggle: F. VFO-A/B
+          </button>
+        </div>
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('SW10')">
+            F. VFO-B >> VFO-A
+          </button>
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('SW26')">
+            Toggle: split ON/OFF
+          </button>
+        </div>
+        <div class="col-xs-6">
+          <button class="btn btn-primary form-control" ng-click="sendData('FA?')">
+            READ FREQ
+          </button>
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+
+      <div class="row">
+      <div class="col-xs-6">
+        <button type="submit" name="action" value="VFA" class="btn btn-warning form-control" >
+          UART1 set
+        </button>
+      </div>
+      <div class="col-xs-6">
+        <button type="submit" name="action" value="VFA" class="btn btn-warning form-control">
+          UART2 set DDS4
+        </button>
+      </div>
+    </div>
+    </form>
+
+
+    <div>
+      UART rx: <code>{{Message}}</code>
+    </div>
+  </div>
+
+</body>
+</html>
