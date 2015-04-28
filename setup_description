@@ -1,0 +1,30 @@
+
+1- Software setup RasPi2
+
+installed the 	Raspbian
+driver dongle
+netconfig    auto wlan0 and ssid and password
+rc.local for auto start at boot time
+the web server is implemented in Go language with html interface, 
+the compiler is installed on PC with windows and cross compiled for arm-linux but Go compiler can be installed on raspi2 board
+
+
+
+2 Hardware setup
+
+The Hw required for this project
+Raspberry pi2 board
+wifi dongle
+power supply microusb
+sd card 4Gbytes minimum
+external board with RS232 buffer (as MAX232) and standard DB9 pole connector
+standard RS232 cable
+
+
+DDS4  http://www.i0cg.com/ad9951.htm  http://www.i0cg.com/dds-4.pdf
+
+
+SDT2011   http://www.i0cg.com/ad9957_dds.htm
+
+
+   https://github.com/gsanto/RadioSet55
