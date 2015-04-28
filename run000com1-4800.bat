@@ -1,0 +1,1 @@
+ctl -serialName=COM1 -serialSpeed=4800

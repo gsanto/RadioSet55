@@ -1,0 +1,1 @@
+GOARM=5 GOOS=linux GOARCH=arm GOPATH=D:\Go\src\pkg go build ctl.go
