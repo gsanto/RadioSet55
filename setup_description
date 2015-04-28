@@ -2,7 +2,7 @@
 1- Software setup RasPi2
 
 installed the OS	Raspbian
-driver dongle
+driver dongle TL-775 but there is many other dongle as in Farnell
 netconfig    auto wlan0 and ssid and password
 rc.local for auto start at boot time
 the web server is implemented in Go language with html interface, 
@@ -28,4 +28,4 @@ with
 SDT2011   http://www.i0cg.com/ad9957_dds.htm
 
 
-   https://github.com/gsanto/RadioSet55
+all the source code is on   https://github.com/gsanto/RadioSet55
