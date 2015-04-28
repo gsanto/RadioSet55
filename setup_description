@@ -1,7 +1,7 @@
 
 1- Software setup RasPi2
 
-installed the 	Raspbian
+installed the OS	Raspbian
 driver dongle
 netconfig    auto wlan0 and ssid and password
 rc.local for auto start at boot time
@@ -19,10 +19,11 @@ power supply microusb
 sd card 4Gbytes minimum
 external board with RS232 buffer (as MAX232) and standard DB9 pole connector
 standard RS232 cable
-
+and DDS4 is the device controlled remotely
 
 DDS4  http://www.i0cg.com/ad9951.htm  http://www.i0cg.com/dds-4.pdf
 
+with 
 
 SDT2011   http://www.i0cg.com/ad9957_dds.htm
 
